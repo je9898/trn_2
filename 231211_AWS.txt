@@ -1,3 +1,91 @@
-https://huijomi97.tistory.com/19 -> pem 암호화 방법
-https://www.youtube.com/watch?v=MR4sCU82tgo -> 비대칭 암호화 설명
+- 암호화 기법 추가 설명 참조
+	https://huijomi97.tistory.com/19
+		-> pem 암호화 방법
+		
+	https://www.youtube.com/watch?v=MR4sCU82tgo
+		-> 비대칭키 암호화 설명
 
+
+- 보안그룹
+	-> 인바운드 규칙 유형 : 사용자 지정 TCP, 포트 : 3306, 소스 : ANYWHEREIPv4 -> 추가 (DATABASE)
+		-> DATABASE(3306), TOMCAT(8080), IPv4/탄력IP(ALL) => 이놈 다시 삭제했다, HTTP(80), HTTPS/WAS(443), PUTTY/SSH(22) 에서 접속 가능하도록 설정함.
+	-> 아웃바운드 규칙 : 모든 곳으로 내보내기 가능하도록 설정함.
+		-> 내보내기 특정한곳으로만 내보내고싶다면 수정 하도록.
+		
+- 탄력적 IP 주소 설정
+	-> 체크 후 릴리즈 = 삭제.
+	-> 지정 IP로 받을수 없다. (AWS에서 지정, 관리)
+	-> 이놈 안해주면. 재접속, 업데이트마다 지정받은 IP가 변경되어 불편함이 있다.
+	-> 서버 당 (DB서버, AWS서버...등 ) 1개의 탄력적 주소 할당 필요.
+		-> 포트가 다른데 여러개 왜필요? 
+		-> 일단 기본적으로 찾아갈 떄 IP를 먼저 찾아감. 이후에 포트번호로 확실하게 찾아가는거네.
+		-> 그냥 포트는 고정시켜놓고 IP만 유동적으로 변경하는게 편해서? -> 안전해서?
+		-> 하나의 서버엔 하나의 프로그램만, 왜냐고? 내생각엔 서버하나 다운됐을때 리스크 줄이려고..? 이게 맞는듯.
+		-> 할 수는 있는데 리스크가 있어 안하는게 맞네.
+	-> 사설IP : 외부접속 불가능. (해당 상위 카테고리의 공인IP안에서만 놀수있다)
+		-> 사용이유 : 모든곳(컴퓨터,공유기..동)에 공인IP 각각 지정 불가능하기때문.
+	-> 공인IP : 외부접속 가능.
+		-> (1개 인터넷) 내부에 (N개의 공인IP) 내부에 (N개의 사설IP) 로 이해하자.
+		-> 사설IP를 공인IP처럼 사용하기 위해 사용하는것 -> 라우터(공유기)
+		-> AWS : EC2에 공인IP 하나 발급 -> 탄력적IP = 공인IP
+		
+- 사용자 이름
+	-> 인스턴스 실행에 나오는 사용자 이름이, 최고 관리자 이름이다.
+		그래서 putty에서 접속할 떄 ID로 ubuntu 입력 하는거였네.
+		
+- PUTTY에서 PUBLIC_KEY 확인법
+	-> ls -al 
+	-> cd .ssh
+	-> cat authorized_keys
+	
+- PUTTY에서 환경세팅 하자.
+	-> MARIADB랑 APHACH랑 TOMCAT 설치할거같은데?
+	
+		// ubuntu 업데이트, 업그레이드 시작 
+	-> sudo apt-get update 
+	-> sudo apt-get upgrade -y
+		// ubuntu 업데이트, 업그레이드 끝
+		
+		// mariadb 설치 시작 
+	-> sudo apt-get install mariadb-server 
+		-> mariadb 최신버전 설치
+		-> 설치경로 : /etc/systemd/system/multi-user.target.wants/mariadb.service → /lib/systemd/system/mariadb.service.
+		// mariadb 설치 끝
+		
+		// mariadb 진입설정 업데이트 시작
+	-> sudo myslq_secure_installation
+		-> 기본설정인가봐 비번 1234 설정하고 나머지 다 y (설정초기화 스멜)
+	-> sudo mariadb
+		-> mariadb 접속 (추후에 설정 변경해 'mysql -u root -p' 로 접속하게 변경)
+	-> select host, user, plugin from mysql.user;
+		-> localhost, root, unix_socket (1개만 나옴 추가해줘야함.)
+	-> system clear; 
+		-> clear
+	-> select version();
+		-> 버전 확인
+	-> update mysql.user set plugin='mysql_native_password' where user='root';
+	-> flush privileges;
+		-> mysql 환경설정에 강제입력하는거래
+		-> 위 두개 = 초기세팅이라 보면될듯?
+		-> 여까지 하니까 'mysql -u root -p' 로 접속된다요
+		-> 나만쓸땐 노상인데 클라이언트에서 접속할땐 ID, PW 입력해 들어오니 해줘야한다. 
+		// mariadb 진입설정 업데이트 끝
+		
+		// mariadb 기준 시간 설정 시작
+	-> select @@global.time_zone, @@session.time_zone;
+		-> 기준시간 조회 (SYSTEM = ubuntu system)
+	-> set global time_zone='Asia/Seoul'; set time_zone='Asia/Seoul';
+		-> 기준시간 아시아/서울 로 변경 *근데 에러남*
+	-> exit
+	-> sudo timedatectl set-timezone Asia/Seoul && sudo timedatectl set-ntp true
+		-> ubuntu 시간 서울로 변경
+		// mariadb 기준 시간 설정 끝
+		
+	-> exit 
+	-> sudo dpkg -l | grep mariadb;
+		-> 데이방 패키지에 마리아디비 설치목록 보여줘라.
+	-> sudo apt-get purge [mariadb-server] -y;
+		-> 마리아디비 삭제
+		
+	-> sudo systemctl [start,stop,status] mariadb
+		-> mariadb 시작,중지,상태확인
