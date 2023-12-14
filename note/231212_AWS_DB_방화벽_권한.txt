@@ -1,0 +1,27 @@
+1. AWS DB 3306포트 접속 IP 0.0.0.0 설정
+2. MARIADB 어떤 설정 드가서 VI편집기로 IP 0.0.0.0 설정
+	->  경로 : /etc/mysql/mariadb.conf.d/50-server.cnf
+	->	bind-adress : 12.0.0.1 => 0.0.0.0
+	-> 변경하는데 뭔 에러뜨면 sudo vi ~~~ 해라
+	->  sudo systemctl restart mysql  마리아디비 재접속
+
+3. MARIADB USER 신규생성하고 권한설정
+	->  create user '[팀원ID]'@'%' identified by '1234';
+		-> 사용자 생성
+		->  drop user '[팀원ID]'@'localhost';
+		-> 사용자 삭제
+	-> select user, host, password from mysql.user;
+		-> user 확인.
+	-> update user set password=password('1234') where user='root'
+		-> 비번변경
+	-> 권한 설정
+		-> GRANT SELECT, INSERT, DELETE, UPDATE ON *.* to '[팀원ID]'@'%' identified by '1234' with grant option;
+		-> GRANY ALL => 모든권한 (나한테만)
+	-> 권한 삭제
+		-> GRANT -> REVOKE 변경
+	-> 방화벽 설정
+		->  sudo ufw allow 3306/tcp
+		-> 	sudo ufw status
+		
+특정 IP 접속차단/접속허용 못함?
+AWS 에서 접속하는 IP는 알수없다네 => 못함
