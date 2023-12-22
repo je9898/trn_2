@@ -1,16 +1,13 @@
-package JavaExm03;
+package Package03;
 
-import java.util.Arrays;
-
-public class JavaExm03 {
+public class Main {
     public static void main(String[] args){
         //plusClass pl = new plusClass(); //인스턴스 생성
         //pl.plus();      //static이 아니기때문에 인스턴스 생성
         //booleClass.boole(); //static 메소드기때문에 바로 클래스 참조.
         //bufferClass bf = new bufferClass(); //StringBuffer
         //bf.buffer();
-        mapClass m = new mapClass();
-        m.map();
+
     }
 }
 
@@ -55,25 +52,4 @@ class bufferClass{
     }
 }
 
-class mapClass{
-    public void map(){
-        int[] odds = {1, 3, 5, 7, 9};   //int형 배열 만들겠다.
-        String[] weeks = {"월", "화", "수", "목", "금", "토", "일"}; //String형 배열 만들겠다.
-        /*
-        String[] week = new String[7];  //7칸 배열 지정하겠다.
-        week[0] = "월";
-        week[1] = "화";
-        week[2] = "수";
-        week[3] = "목";
-        week[4] = "금";
-        week[5] = "토";
-        week[6] = "일";
-        */
-        String[] week = new String[weeks.length];
-        for(int i=0; i<weeks.length; i++){
-            week[i] = weeks[i];
-        }
-        System.out.println(Arrays.toString(week));
-        System.out.println(Arrays.toString(weeks));
-    }
-}
+

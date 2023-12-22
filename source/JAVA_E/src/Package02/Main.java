@@ -1,9 +1,11 @@
-package Packge02;
+package Package02;
+import Package01.Packge01Main;
+
 import java.util.*;
-import Packge01.JavaExm01;
-public class JavaExm02 {
+
+public class Main {
     public static void main(String[] args){
-        JavaExm01.JavaExm01_4();
+        Packge01Main.JavaExm01_4("손윤제");
         ArrayList<String> JavaExm02_1_L = new ArrayList<>();
         JavaExm02_1_L.add("S");
         JavaExm02_1_L.add("O");

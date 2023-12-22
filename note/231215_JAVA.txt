@@ -1,0 +1,17 @@
+- package04 작업
+
+- 제네릭 문법
+	-> 자료형을 지정해줌
+	-> ArrayList<String> pitches = new ArrayList<>(); => 사용함
+	-> ArrayList pitches = new ArrayList(); => 사용안함
+		-> 요놈 사용안하면 나중에 사용할떄 (String) pitches 처럼 형변환을 해줘야한다. 걍 써라
+	-> 주말에 한번 파보자
+	
+- 맵
+	-> new HashMap = 저장순서 보장 x 
+	-> new LinkedHashMap = 저장순서 보장
+	-> String[] key = mapName.keySet().toArray(new String[0]);
+        // size 0으로 주는건 넣을게 0보다 크면 넣는크기 , 작으면 내가 설정한 size로
+        // mapName.keySet() List 포멧인거같은데? //HashMap$KeySet
+	-> HashSet = 집합 자료형
+		-> 중복된 데이터를 제거하거나 이미 데이터가 추가되어 있는지를 검사할 때 주로 사용

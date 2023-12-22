@@ -1,0 +1,13 @@
+typeOf = .getClass().getName(); 
+
+Stringify = Arrays.toString()
+
+ArrayList<String> pitches = new ArrayList<>(Arrays.asList("138", "129", "142"));
+String result = String.join(",", pitches);
+
+linkedList ArrayList
+-> 걍 ArrayList 쓰자 전자는 속도가 개 느림
+
+LinkedHashMap : 입력된 순서대로 데이터를 저장한다.
+TreeMap : 입력된 key의 오름차순으로 데이터를 저장한다.
+-> LinkedHashMap이랑 Map이랑 속도차이 없다는데? 일반 왜씀?
