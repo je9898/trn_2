@@ -1,0 +1,73 @@
+- nvm
+	-> node.js 실행하기 위함(js기반)
+		-> js기반 프로그램 실행 환경(런타임) 제공
+	-> 이벤트 처리와 비동기식 모델작업
+	-> 실시간 처리.
+	-> 입출력이 자주 발생하는 경우
+	-> js로 만들어진 파일을 웹 브라우저에서 실행하는게 아닌 서버단에서 실행 가능.
+	
+	-> 실행환경 만들기
+		-> 프로젝트 생성이라고 표현.
+		-> 외부 라이브러리
+			-> 도구 
+		-> 의존성
+			-> package.json파일 생성
+				-> 자료처리를 위한 로직(구조)
+				
+		-> npm install	
+			-> 포르젝트 생성
+				* 생성할 프로젝트 디렉토리가 있어야함.
+		-> npm server	
+			-> 로컬 서버 구동
+			
+		
+cmd vue/cli 설치
+	-> 원하는 경로 가서
+	-> npm init -y
+		-> 
+	-> npm install (에러남)
+	-> npm install -g @vue/cli (뭔가 깔림)
+		-> npm으로 node에서 vue/cli 설치할거야 라는 뜻~
+		-> package-lock.json (뭔데이게)
+	-> vue create [testvue]
+		-> vue 프로젝트 생성
+		-> vue 3 설치 ㄱㄱ
+		
+		
+뷰, 리엑트, js 모두 node 기반이다
+고로 node 설치 하고 
+해당 라이브러리 패키지 설치 프로그램 설치 하고 
+그 프로그램으로 프로젝트 생성
+ㅇㅋ?
+
+- <template></<template>>
+	-> vue의 html이란다
+	-> script,css는 동일.
+	
+- package.json
+	-> 정보 보여주는거같은데?
+	
+- npm run serve 
+	-> npm 서버 열자.
+	-> 프로젝트 경로까지 가서 해야함
+	
+- npm uninstall -g @testvue
+	-> 프로젝트 삭제
+	-> 파일은 남는데 데이터는 사라짐
+	
+- rd testvue /s
+	-> 파일도 삭제해버려
+	
+	
+- vue create
+ (*) Babel                
+	-> 자바스크립트 컴파일러
+ (*) TypeScript             
+	-> js 슈퍼셋 프로그래밍 언어, 컴파일하면 js마냥 변함
+ ( ) Progressive Web App (PWA) Support                                                                                                     
+ (*) Router                                                                                                                                
+ (*) Vuex                                                                                                                                  
+ (*) CSS Pre-processors                                                                                                                    
+ (*) Linter / Formatter                                                                                                                    
+>( ) Unit Testing                                                                                                                          
+ ( ) E2E Testing  
